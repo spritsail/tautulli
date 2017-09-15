@@ -4,7 +4,7 @@ pipeline:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     commands:
-       - docker build -t plexpy-dev . 
+       - docker build --pull --no-cache -t plexpy-dev .
 
   test:
     image: docker
@@ -12,8 +12,8 @@ pipeline:
       - /var/run/docker.sock:/var/run/docker.sock
     commands:
       - apk add --no-cache curl
-      - CON_NAME=$(docker run --rm -d -p 8181:8181 --user=root devbuild) # Need root for config
-      - sleep 10  # Wait for PlexPy to start!
+      - CON_NAME=$(docker run --rm -d -p 8181:8181 --user=root plexpy-dev) # Need root for config
+      - sleep 30  # Wait for PlexPy to start!
       - docker logs $$CON_NAME
       - curl -sSL --max-time 3 --retry 5 --retry-delay 5 $(docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $$CON_NAME):8181/welcome  > /dev/null 
       - docker kill $$CON_NAME # Not really needed, but keeps things quick
