@@ -10,7 +10,7 @@ pipeline:
     volumes: [ '/var/run/docker.sock:/var/run/docker.sock' ]
     commands:
       - apk add --no-cache curl
-      - CON_NAME=$(docker run --rm -d --user=root tautulli-dev)
+      - CON_NAME=$(docker run -d --user=root tautulli-dev)
       - timeout -t 30 -- docker logs -f $$CON_NAME | cat &
       - sleep 10
       - IP=$(docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $$CON_NAME)
