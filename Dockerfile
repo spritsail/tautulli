@@ -27,4 +27,4 @@ RUN git clone https://github.com/Tautulli/Tautulli.git /tautulli \
 VOLUME ["/config", "/media"]
 EXPOSE 8081
 
-ENTRYPOINT ["python2.7", "/plexpy/PlexPy.py", "--datadir", "/config"]
+ENTRYPOINT ["python2.7", "/tautulli/Tautulli.py", "--datadir", "/config"]
