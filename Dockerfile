@@ -2,7 +2,14 @@ FROM alpine:3.7
 
 ARG TAUTULLI_VER=HEAD
 
-MAINTAINER Adam Dodman <adam.dodman@gmx.com>
+LABEL maintainer="Spritsail <tautulli@spritsail.io>" \
+      org.label-schema.vendor="Spritsail" \
+      org.label-schema.name="Tautulli" \
+      org.label-schema.url="http://tautulli.com/" \
+      org.label-schema.description="A plex monitoring and statistics tool" \
+      org.label-schema.version=${TAUTULLI_VER} \
+      io.spritsail.version.tautulli=${TAUTULLI_VER}
+
 
 ENV UID=905 UNAME=tautulli GID=900 GNAME=media
 
