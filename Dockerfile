@@ -1,4 +1,4 @@
-FROM alpine:3.7
+FROM spritsail/alpine:3.7
 
 ARG TAUTULLI_VER=HEAD
 
@@ -10,21 +10,15 @@ LABEL maintainer="Spritsail <tautulli@spritsail.io>" \
       org.label-schema.version=${TAUTULLI_VER} \
       io.spritsail.version.tautulli=${TAUTULLI_VER}
 
+ENV SUID=905 SGID=900
 
-ENV UID=905 UNAME=tautulli GID=900 GNAME=media
+WORKDIR /tautulli
 
-
-RUN addgroup -g $GID $GNAME \
- && adduser -SH -u $UID -G $GNAME -s /usr/sbin/nologin $UNAME \
- && apk --update --no-cache add git python \
- && mkdir /tautulli && chown $UID:$GID /tautulli
-
-USER $UNAME
-
-RUN git clone https://github.com/Tautulli/Tautulli.git /tautulli \
- && git -C /tautulli reset --hard ${TAUTULLI_VER}
+RUN apk --no-cache add python2 \
+ && wget -O- https://api.github.com/repos/Tautulli/Tautulli/tarball/${TAUTULLI_VER} \
+        | tar xz --strip-components=1
 
 VOLUME ["/config", "/media"]
 EXPOSE 8081
 
-ENTRYPOINT ["python2.7", "/tautulli/Tautulli.py", "--datadir", "/config"]
+CMD ["python2.7", "/tautulli/Tautulli.py", "--datadir", "/config"]
