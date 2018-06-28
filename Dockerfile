@@ -23,4 +23,4 @@ RUN apk --no-cache add python2 \
 VOLUME ["/config", "/media"]
 EXPOSE 8081
 
-CMD ["python2.7", "/tautulli/Tautulli.py", "--datadir", "/config"]
+CMD ["python2", "/tautulli/Tautulli.py", "--datadir", "/config", "--nolaunch", "--verbose"]
