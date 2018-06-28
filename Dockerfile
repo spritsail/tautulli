@@ -1,6 +1,6 @@
 FROM spritsail/alpine:3.7
 
-ARG TAUTULLI_VER=HEAD
+ARG TAUTULLI_VER=v2.1.14
 
 LABEL maintainer="Spritsail <tautulli@spritsail.io>" \
       org.label-schema.vendor="Spritsail" \
@@ -15,7 +15,7 @@ ENV SUID=905 SGID=900
 WORKDIR /tautulli
 
 RUN apk --no-cache add python2 \
- && wget -O- https://api.github.com/repos/Tautulli/Tautulli/tarball/${TAUTULLI_VER} \
+ && wget -O- https://github.com/Tautulli/Tautulli/tarball/${TAUTULLI_VER} \
         | tar xz --strip-components=1
 
 VOLUME ["/config", "/media"]
