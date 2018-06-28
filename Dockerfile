@@ -16,7 +16,9 @@ WORKDIR /tautulli
 
 RUN apk --no-cache add python2 \
  && wget -O- https://github.com/Tautulli/Tautulli/tarball/${TAUTULLI_VER} \
-        | tar xz --strip-components=1
+        | tar xz --strip-components=1 \
+# https://github.com/Tautulli/Tautulli/blob/master/plexpy/versioncheck.py#L120
+ && printf "$TAUTULLI_VER" > version.txt
 
 VOLUME ["/config", "/media"]
 EXPOSE 8081
