@@ -31,6 +31,9 @@ pipeline:
     when: { branch: [ master, pass ], event: [ push, tag, deployment ] }
     from: tautulli-dev
     repo: spritsail/tautulli
+    tags:
+      - 'latest'
+      - '%label: io.spritsail.version.tautulli'
 
   notify:
     image: spritsail/notify
