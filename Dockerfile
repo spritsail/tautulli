@@ -14,7 +14,7 @@ ENV SUID=905 SGID=900
 
 WORKDIR /tautulli
 
-RUN apk --no-cache add python2 \
+RUN apk --no-cache add python2 py-setuptools \
  && wget -O- https://github.com/Tautulli/Tautulli/tarball/${TAUTULLI_VER} \
         | tar xz --strip-components=1 \
 # https://github.com/Tautulli/Tautulli/blob/master/plexpy/versioncheck.py#L120
