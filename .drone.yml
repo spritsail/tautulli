@@ -13,19 +13,18 @@ pipeline:
     # Check the version requested in the CSS line.
     # Not ideal but it works for now.
     pipe: >
-      sed -nE "/tautulli\\.css/s/.*\\?v([0-9\.]+)\".*/\\1/p" |
+      sed -nE "/tautulli\\.css/s/.*\\?v([0-9\.]+-beta)\".*/\\1/p" |
       grep -qw "$(label io.spritsail.version.tautulli)"
 
   publish:
     image: spritsail/docker-publish
     volumes: [ '/var/run/docker.sock:/var/run/docker.sock' ]
     secrets: [ docker_username, docker_password, microbadger_token ]
-    when: { branch: [ master ], event: [ push, tag, deployment ] }
+    when: { branch: [ beta ], event: [ push, tag, deployment ] }
     from: tautulli-dev
     repo: spritsail/tautulli
     tags:
-      - 'latest'
-      - '%label: io.spritsail.version.tautulli'
+      - '%label io.spritsail.version.tautulli | %remsuf beta | %prefix beta | %auto'
 
   notify:
     image: spritsail/notify
