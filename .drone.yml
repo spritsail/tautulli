@@ -25,7 +25,7 @@ pipeline:
     repo: spritsail/tautulli
     tags:
       - 'latest'
-      - '%label: io.spritsail.version.tautulli'
+      - '%label io.spritsail.version.tautulli'
 
   notify:
     image: spritsail/notify
