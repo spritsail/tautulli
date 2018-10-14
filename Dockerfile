@@ -1,6 +1,6 @@
 FROM spritsail/alpine:3.8
 
-ARG TAUTULLI_VER=2.1.20-beta
+ARG TAUTULLI_VER=2.1.23-beta
 
 LABEL maintainer="Spritsail <tautulli@spritsail.io>" \
       org.label-schema.vendor="Spritsail" \
@@ -10,7 +10,8 @@ LABEL maintainer="Spritsail <tautulli@spritsail.io>" \
       org.label-schema.version=${TAUTULLI_VER} \
       io.spritsail.version.tautulli=${TAUTULLI_VER}
 
-ENV SUID=905 SGID=900
+ENV SUID=905 SGID=900 \
+    TAUTULLI_DOCKER=True
 
 WORKDIR /tautulli
 
