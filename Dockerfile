@@ -1,6 +1,6 @@
 FROM spritsail/alpine:3.8
 
-ARG TAUTULLI_VER=2.1.22
+ARG TAUTULLI_VER=2.1.25
 
 LABEL maintainer="Spritsail <tautulli@spritsail.io>" \
       org.label-schema.vendor="Spritsail" \
