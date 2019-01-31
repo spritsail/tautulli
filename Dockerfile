@@ -1,4 +1,4 @@
-FROM spritsail/alpine:3.8
+FROM spritsail/alpine:3.9
 
 ARG TAUTULLI_VER=2.1.26
 
