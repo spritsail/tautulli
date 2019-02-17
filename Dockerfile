@@ -24,4 +24,7 @@ RUN apk --no-cache add python2 py-setuptools \
 VOLUME ["/config", "/media"]
 EXPOSE 8081
 
+HEALTHCHECK --start-period=10s --timeout=5s \
+    CMD wget -qO /dev/null "http://localhost:8181$(sed -nE 's/^http_root.*\s*=\s*(.*)$/\1/p' /config/config.ini)/api/v2?cmd=arnold&apikey=$(sed -nE 's/^api_key\s*=\s*(.*)$/\1/p' /config/config.ini)"
+
 CMD ["python2", "/tautulli/Tautulli.py", "--datadir", "/config", "--nolaunch", "--verbose"]
