@@ -1,6 +1,6 @@
 FROM spritsail/alpine:3.9
 
-ARG TAUTULLI_VER=2.1.31
+ARG TAUTULLI_VER=2.1.32
 ARG TIMEZONE=Etc/UTC
 
 LABEL maintainer="Spritsail <tautulli@spritsail.io>" \
@@ -24,11 +24,10 @@ RUN apk --no-cache add python2 py-setuptools tzdata \
  && cp /usr/share/zoneinfo/${TIMEZONE} /etc/localtime \
  && apk --no-cache del tzdata
 
-
 VOLUME ["/config", "/media"]
 EXPOSE 8081
 
 HEALTHCHECK --start-period=10s --timeout=5s \
-    CMD wget -qO /dev/null "http://localhost:8181$(sed -nE 's/^http_root.*\s*=\s*(.*)$/\1/p' /config/config.ini)/api/v2?cmd=arnold&apikey=$(sed -nE 's/^api_key\s*=\s*(.*)$/\1/p' /config/config.ini)"
+    CMD wget -qO /dev/null "http://localhost:8181/status"
 
 CMD ["python2", "/tautulli/Tautulli.py", "--datadir", "/config", "--nolaunch", "--verbose"]
