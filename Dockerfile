@@ -1,6 +1,6 @@
 FROM spritsail/alpine:3.10
 
-ARG TAUTULLI_VER=2.1.38
+ARG TAUTULLI_VER=2.1.39
 ARG TIMEZONE=Etc/UTC
 
 LABEL maintainer="Spritsail <tautulli@spritsail.io>" \
