@@ -46,22 +46,8 @@ steps:
     event:
     - push
     - tag
-
-- name: notify
-  pull: always
-  image: spritsail/notify
-  environment:
-    NOTIFY_TOKEN:
-      from_secret: notify_token
-    WEBHOOK_URL:
-      from_secret: webhook_url
-  when:
-    status:
-    - success
-    - failure
-
 ---
 kind: signature
-hmac: a1b79e16be04771f61e1a7d74419203734a1dcda976b8cb419001a8f9e496619
+hmac: 94361ffdd24986cc24c40fc1e0abdd77da02a0a3bdcf9c1795207847aafb32d0
 
 ...
