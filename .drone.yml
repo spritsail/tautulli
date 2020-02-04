@@ -35,19 +35,18 @@ steps:
     tags:
     - latest
     - "%label io.spritsail.version.tautulli"
-  environment:
-    DOCKER_PASSWORD:
-      from_secret: docker_password
-    DOCKER_USERNAME:
+    username:
       from_secret: docker_username
+    password:
+      from_secret: docker_password
   when:
     branch:
     - master
     event:
     - push
-    - tag
+
 ---
 kind: signature
-hmac: 94361ffdd24986cc24c40fc1e0abdd77da02a0a3bdcf9c1795207847aafb32d0
+hmac: af5864981c950e61e51d86e0dca90837f8c88463a777b96940f1ac5a4b13dd2d
 
 ...

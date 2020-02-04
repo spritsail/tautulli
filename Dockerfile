@@ -1,4 +1,4 @@
-FROM spritsail/alpine:3.10
+FROM spritsail/alpine:3.11
 
 ARG TAUTULLI_VER=2.1.43
 ARG TIMEZONE=Etc/UTC
