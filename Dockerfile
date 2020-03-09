@@ -1,6 +1,7 @@
 FROM spritsail/alpine:3.11
 
-ARG TAUTULLI_VER=2.1.44
+ARG TAUTULLI_VER=2.2.0
+ARG TAUTULLI_BRANCH=master
 ARG TIMEZONE=Etc/UTC
 
 LABEL maintainer="Spritsail <tautulli@spritsail.io>" \
@@ -12,6 +13,9 @@ LABEL maintainer="Spritsail <tautulli@spritsail.io>" \
       io.spritsail.version.tautulli=${TAUTULLI_VER}
 
 ENV SUID=905 SGID=900
+# Disable updates when using Docker container
+# https://github.com/Tautulli/Tautulli/commit/8690d2ced5e5afe8c8f3342881d478fed37c274d
+ENV TAUTULLI_DOCKER=True
 
 WORKDIR /tautulli
 
@@ -20,6 +24,7 @@ RUN apk --no-cache add python2 py-setuptools tzdata \
         | tar xz --strip-components=1 \
 # https://github.com/Tautulli/Tautulli/blob/master/plexpy/versioncheck.py#L120
  && printf "v$TAUTULLI_VER" > version.txt \
+ && printf "$TAUTULLI_BRANCH" > branch.txt \
 # Fix pytz default timezone to UTC
  && cp /usr/share/zoneinfo/${TIMEZONE} /etc/localtime \
  && apk --no-cache del tzdata
