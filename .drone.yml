@@ -1,12 +1,22 @@
-pipeline:
-  build:
-    image: spritsail/docker-build
-    volumes: [ '/var/run/docker.sock:/var/run/docker.sock' ]
+---
+kind: pipeline
+name: default
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+- name: build
+  pull: always
+  image: spritsail/docker-build
+  settings:
     repo: tautulli-dev
 
-  test:
-    image: spritsail/docker-test
-    volumes: [ '/var/run/docker.sock:/var/run/docker.sock' ]
+- name: test
+  pull: always
+  image: spritsail/docker-test
+  settings:
     repo: tautulli-dev
     curl: ':8181/welcome'
     delay: 3
@@ -16,17 +26,27 @@ pipeline:
       sed -nE "/tautulli\\.css/s/.*\\?v([0-9\.]+-beta)\".*/\\1/p" |
       grep -qw "$(label io.spritsail.version.tautulli)"
 
-  publish:
-    image: spritsail/docker-publish
-    volumes: [ '/var/run/docker.sock:/var/run/docker.sock' ]
-    secrets: [ docker_username, docker_password, microbadger_token ]
-    when: { branch: [ beta ], event: [ push, tag, deployment ] }
+- name: publish
+  pull: always
+  image: spritsail/docker-publish
+  settings:
     from: tautulli-dev
     repo: spritsail/tautulli
     tags:
-      - '%label io.spritsail.version.tautulli | %remsuf beta | %prefix beta | %auto'
+    - beta
+    - "%label io.spritsail.version.tautulli | %remsuf beta | %prefix beta | %auto"
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+  when:
+    branch:
+    - beta
+    event:
+    - push
 
-  notify:
-    image: spritsail/notify
-    when: { status: [ success, failure ] }
-    secrets: [ webhook_url, notify_token ]
+---
+kind: signature
+hmac: b2eb331669826191b872e5f76b9be0d9b16486c369d56cd56d46ac6f060e8b4c
+
+...
