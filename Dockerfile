@@ -1,6 +1,6 @@
 FROM spritsail/alpine:3.12
 
-ARG TAUTULLI_VER=2.5.0-beta
+ARG TAUTULLI_VER=2.5.2-beta
 ARG TAUTULLI_BRANCH=beta
 ARG TIMEZONE=Etc/UTC
 
