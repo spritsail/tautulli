@@ -1,6 +1,6 @@
 FROM spritsail/alpine:3.12
 
-ARG TAUTULLI_VER=2.2.4
+ARG TAUTULLI_VER=2.5.2
 ARG TAUTULLI_BRANCH=master
 ARG TIMEZONE=Etc/UTC
 
@@ -19,7 +19,7 @@ ENV TAUTULLI_DOCKER=True
 
 WORKDIR /tautulli
 
-RUN apk --no-cache add python2 py-setuptools tzdata \
+RUN apk --no-cache add python3 py-setuptools tzdata \
  && wget -O- https://github.com/Tautulli/Tautulli/tarball/v${TAUTULLI_VER} \
         | tar xz --strip-components=1 \
 # https://github.com/Tautulli/Tautulli/blob/master/plexpy/versioncheck.py#L120
@@ -35,4 +35,4 @@ EXPOSE 8081
 HEALTHCHECK --start-period=10s --timeout=5s \
     CMD wget -qO /dev/null "http://localhost:8181/status"
 
-CMD ["python2", "/tautulli/Tautulli.py", "--datadir", "/config", "--nolaunch", "--verbose"]
+CMD ["python3", "/tautulli/Tautulli.py", "--datadir", "/config", "--nolaunch", "--verbose"]
