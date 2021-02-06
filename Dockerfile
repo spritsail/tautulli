@@ -1,6 +1,6 @@
-FROM spritsail/alpine:3.12
+FROM spritsail/alpine:3.13
 
-ARG TAUTULLI_VER=2.6.5
+ARG TAUTULLI_VER=2.6.6
 ARG TAUTULLI_BRANCH=master
 ARG TIMEZONE=Etc/UTC
 

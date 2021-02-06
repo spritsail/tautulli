@@ -10,14 +10,11 @@ steps:
 - name: build
   pull: always
   image: spritsail/docker-build
-  settings:
-    repo: tautulli-dev
 
 - name: test
   pull: always
   image: spritsail/docker-test
   settings:
-    repo: tautulli-dev
     curl: ':8181/welcome'
     delay: 3
     # Check the version requested in the CSS line.
@@ -30,15 +27,11 @@ steps:
   pull: always
   image: spritsail/docker-publish
   settings:
-    from: tautulli-dev
     repo: spritsail/tautulli
     tags:
     - latest
     - "%label io.spritsail.version.tautulli"
-    username:
-      from_secret: docker_username
-    password:
-      from_secret: docker_password
+    login: {from_secret: docker_login}
   when:
     branch:
     - master
@@ -47,6 +40,6 @@ steps:
 
 ---
 kind: signature
-hmac: af5864981c950e61e51d86e0dca90837f8c88463a777b96940f1ac5a4b13dd2d
+hmac: e672b1d1693238ad61af28c426daece3b231852ba4998f773adfb0dc7ed22fd8
 
 ...
