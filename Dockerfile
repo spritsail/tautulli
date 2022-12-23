@@ -4,12 +4,11 @@ ARG TAUTULLI_VER=2.11.1
 ARG TAUTULLI_BRANCH=master
 ARG TIMEZONE=Etc/UTC
 
-LABEL maintainer="Spritsail <tautulli@spritsail.io>" \
-      org.label-schema.vendor="Spritsail" \
-      org.label-schema.name="Tautulli" \
-      org.label-schema.url="https://tautulli.com/" \
-      org.label-schema.description="A Plex monitoring and statistics tool" \
-      org.label-schema.version=${TAUTULLI_VER} \
+LABEL org.opencontainers.image.authors="Spritsail <tautulli@spritsail.io>" \
+      org.opencontainers.image.title="Tautulli" \
+      org.opencontainers.image.url="https://tautulli.com/" \
+      org.opencontainers.image.description="A Plex monitoring and statistics tool" \
+      org.opencontainers.image.version=${TAUTULLI_VER} \
       io.spritsail.version.tautulli=${TAUTULLI_VER}
 
 ENV SUID=905 SGID=900
