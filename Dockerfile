@@ -1,4 +1,4 @@
-FROM spritsail/alpine:3.16
+FROM spritsail/alpine:3.17
 
 ARG TAUTULLI_VER=2.11.1
 ARG TAUTULLI_BRANCH=master
